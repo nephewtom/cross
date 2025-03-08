@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raylib Web App</title>
+
+    <style>
+      body, html {
+          margin: 0;
+          padding: 0;
+          overflow: hidden;
+          width: 100%;
+          height: 100%;
+          background: black; /* Background color for letterboxing */
+      }
+
+      canvas {
+          display: block;
+          background: black; /* Optional: Set a background color */
+      }
+    </style>    
+  </head>
+  <body>
+    <!-- Canvas for rendering the Raylib app -->
+    <canvas id="canvas" oncontextmenu="event.preventDefault()" tabindex="-1"></canvas>
+
+    <!-- Emscripten script injection -->
+    {{{ SCRIPT }}}
+
+    <!-- Minimal Emscripten setup -->
+    <script type='text/javascript'>
+      // Fixed logical resolution
+      const logicalWidth = 800;
+      const logicalHeight = 450;
+
+      var Module = {
+          canvas: (function() {
+              var canvas = document.getElementById('canvas');
+
+              // Handle WebGL context loss
+              canvas.addEventListener("webglcontextlost", function(e) {
+                  alert('WebGL context lost. You will need to reload the page.');
+                  e.preventDefault();
+              }, false);
+
+              // Function to resize the canvas while maintaining aspect ratio
+              function resizeCanvas() {
+                  const windowWidth = window.innerWidth;
+                  const windowHeight = window.innerHeight;
+
+                  // Calculate the aspect ratio of the logical resolution
+                  const aspectRatio = logicalWidth / logicalHeight;
+
+                  // Calculate the new canvas size based on the window size
+                  let canvasWidth = windowWidth;
+                  let canvasHeight = windowHeight;
+
+                  if (windowWidth / windowHeight > aspectRatio) {
+                      // Window is wider than the logical aspect ratio
+                      canvasWidth = windowHeight * aspectRatio;
+                  } else {
+                      // Window is taller than the logical aspect ratio
+                      canvasHeight = windowWidth / aspectRatio;
+                  }
+
+                  // Set the canvas size
+                  canvas.style.width = `${canvasWidth}px`;
+                  canvas.style.height = `${canvasHeight}px`;
+
+                  // Center the canvas
+                  canvas.style.position = 'absolute';
+                  canvas.style.left = `${(windowWidth - canvasWidth) / 2}px`;
+                  canvas.style.top = `${(windowHeight - canvasHeight) / 2}px`;
+              }
+
+              // Resize the canvas when the window is resized
+              window.addEventListener('resize', resizeCanvas);
+
+              // Initial resize
+              resizeCanvas();
+
+              return canvas;
+          })(),
+          setStatus: function(text) {
+              console.log(text); // Log status messages to the console
+          },
+          monitorRunDependencies: function(left) {
+              // Log dependency loading status
+              if (left === 0) console.log('All dependencies loaded.');
+          }
+      };
+
+      // Handle errors
+      window.onerror = function() {
+          console.error('Exception thrown, see JavaScript console');
+      };
+    </script>
+
+  </body>
+</html>
