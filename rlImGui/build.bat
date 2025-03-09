@@ -1,27 +1,26 @@
-imgui.cpp
-g++   -MMD -MP -DDEBUG -DPLATFORM_DESKTOP -DGRAPHICS_API_OPENGL_33 -DIMGUI_DISABLE_OBSOLETE_FUNCTIONS -DIMGUI_DISABLE_OBSOLETE_KEYIO -I../raylib-master/src -I../raylib-master/src/external -I../raylib-master/src/external/glfw/include -I../rlImGui -I../imgui -I../imgui-master -m64 -g -std=c++17  -o "obj/x64/Debug/rlImGui/imgui.o" -MF "obj/x64/Debug/rlImGui/imgui.d" -c "../imgui-master/imgui.cpp"
+@echo off
+rmdir /s /q obj
+mkdir obj
 
-imgui_demo.cpp
-g++   -MMD -MP -DDEBUG -DPLATFORM_DESKTOP -DGRAPHICS_API_OPENGL_33 -DIMGUI_DISABLE_OBSOLETE_FUNCTIONS -DIMGUI_DISABLE_OBSOLETE_KEYIO -I../raylib-master/src -I../raylib-master/src/external -I../raylib-master/src/external/glfw/include -I../rlImGui -I../imgui -I../imgui-master -m64 -g -std=c++17  -o "obj/x64/Debug/rlImGui/imgui_demo.o" -MF "obj/x64/Debug/rlImGui/imgui_demo.d" -c "../imgui-master/imgui_demo.cpp"
+set /p=--- Compiling ImGui files...<nul
+rem @echo Compiling ImGui files...
+@echo on
+g++ -c ./imgui/imgui.cpp ./imgui/imgui_demo.cpp ./imgui/imgui_draw.cpp ./imgui/imgui_tables.cpp ./imgui/imgui_widgets.cpp -I ./imgui -I ./imgui/backends -I ../raylib/src/external -I ../raylib/src/external/glfw -DDEBUG -DPLATFORM_DESKTOP -DGRAPHICS_API_OPENGL_33 -DIMGUI_DISABLE_OBSOLETE_FUNCTIONS -DIMGUI_DISABLE_OBSOLETE_KEYIO -m64 -g -std=c++17
+@echo off
+@echo.
 
-imgui_draw.cpp
-g++   -MMD -MP -DDEBUG -DPLATFORM_DESKTOP -DGRAPHICS_API_OPENGL_33 -DIMGUI_DISABLE_OBSOLETE_FUNCTIONS -DIMGUI_DISABLE_OBSOLETE_KEYIO -I../raylib-master/src -I../raylib-master/src/external -I../raylib-master/src/external/glfw/include -I../rlImGui -I../imgui -I../imgui-master -m64 -g -std=c++17  -o "obj/x64/Debug/rlImGui/imgui_draw.o" -MF "obj/x64/Debug/rlImGui/imgui_draw.d" -c "../imgui-master/imgui_draw.cpp"
+set /p=--- Compiling rlImGui...<nul
+@echo on
+g++ -c ./src/rlImGui.cpp -DDEBUG -DPLATFORM_DESKTOP -DGRAPHICS_API_OPENGL_33 -DIMGUI_DISABLE_OBSOLETE_FUNCTIONS -DIMGUI_DISABLE_OBSOLETE_KEYIO -I../raylib/src -I../raylib/src/external -I../raylib/src/external/glfw/include -I./src/ -I./imgui -m64 -g -std=c++17
+@echo off
+@echo.
 
-imgui_tables.cpp
-g++   -MMD -MP -DDEBUG -DPLATFORM_DESKTOP -DGRAPHICS_API_OPENGL_33 -DIMGUI_DISABLE_OBSOLETE_FUNCTIONS -DIMGUI_DISABLE_OBSOLETE_KEYIO -I../raylib-master/src -I../raylib-master/src/external -I../raylib-master/src/external/glfw/include -I../rlImGui -I../imgui -I../imgui-master -m64 -g -std=c++17  -o "obj/x64/Debug/rlImGui/imgui_tables.o" -MF "obj/x64/Debug/rlImGui/imgui_tables.d" -c "../imgui-master/imgui_tables.cpp"
+set /p=--- Moving files...<nul
+@echo on
+move *.o obj
+@echo off
+@echo.
 
-imgui_widgets.cpp
-g++   -MMD -MP -DDEBUG -DPLATFORM_DESKTOP -DGRAPHICS_API_OPENGL_33 -DIMGUI_DISABLE_OBSOLETE_FUNCTIONS -DIMGUI_DISABLE_OBSOLETE_KEYIO -I../raylib-master/src -I../raylib-master/src/external -I../raylib-master/src/external/glfw/include -I../rlImGui -I../imgui -I../imgui-master -m64 -g -std=c++17  -o "obj/x64/Debug/rlImGui/imgui_widgets.o" -MF "obj/x64/Debug/rlImGui/imgui_widgets.d" -c "../imgui-master/imgui_widgets.cpp"
-
-rlImGui.cpp
-g++   -MMD -MP -DDEBUG -DPLATFORM_DESKTOP -DGRAPHICS_API_OPENGL_33 -DIMGUI_DISABLE_OBSOLETE_FUNCTIONS -DIMGUI_DISABLE_OBSOLETE_KEYIO -I../raylib-master/src -I../raylib-master/src/external -I../raylib-master/src/external/glfw/include -I../rlImGui -I../imgui -I../imgui-master -m64 -g -std=c++17  -o "obj/x64/Debug/rlImGui/rlImGui.o" -MF "obj/x64/Debug/rlImGui/rlImGui.d" -c "../rlImGui.cpp"
-
-Linking rlImGui
-ar -rcs "../bin/Debug/rlImGui.lib"  obj/x64/Debug/rlImGui/imgui.o obj/x64/Debug/rlImGui/imgui_demo.o obj/x64/Debug/rlImGui/imgui_draw.o obj/x64/Debug/rlImGui/imgui_tables.o obj/x64/Debug/rlImGui/imgui_widgets.o obj/x64/Debug/rlImGui/rlImGui.o
-
-
-
-simple.cpp
-g++   -MMD -MP -DDEBUG -DPLATFORM_DESKTOP -DGRAPHICS_API_OPENGL_33 -D_WIN32 -I../raylib-master/src -I../raylib-master/src/external -I../raylib-master/src/external/glfw/include -I.. -I../imgui -I../imgui-master -m64 -g -std=c++17  -o "obj/x64/Debug/simple/simple.o" -MF "obj/x64/Debug/simple/simple.d" -c "../examples/simple.cpp"
-Linking simple
-g++ -o "../bin/Debug/simple.exe"  obj/x64/Debug/simple/simple.o   -L../bin/Debug -L/usr/lib64 -m64 ../bin/Debug/raylib.lib ../bin/Debug/rlImGui.lib -lwinmm -lgdi32
+set /p=--- Linking rlImGui...<nul
+@echo on
+ar -rcs ./src/librlImGui.a obj/*.o
