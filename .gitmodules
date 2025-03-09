@@ -2,5 +2,5 @@
 	path = raylib
 	url = https://github.com/raysan5/raylib
 [submodule "imgui"]
-	path = imgui
+	path = rlImGui/imgui
 	url = https://github.com/ocornut/imgui
