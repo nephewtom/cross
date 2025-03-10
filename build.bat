@@ -1,5 +1,5 @@
 del cross.exe
-g++ cross.cpp obj/*.o -o cross.exe -I./rlImGui/src -I ./rlImGui/imgui  -I ./rlImGui/imgui/backends -I ./raylib/src -L./rlImGui/src -L./raylib/src -lrlImGui -lraylib -lgdi32 -lwinmm -Wall -Wextra -Wno-missing-field-initializers -g
+g++ main.cpp obj/*.o -o cross.exe -I./rlImGui/src -I ./rlImGui/imgui  -I ./rlImGui/imgui/backends -I ./raylib/src -L./rlImGui/src -L./raylib/src -lrlImGui -lraylib -lgdi32 -lwinmm -Wall -Wextra -Wno-missing-field-initializers -g
 .\cross.exe
 
 :: del delta.exe
